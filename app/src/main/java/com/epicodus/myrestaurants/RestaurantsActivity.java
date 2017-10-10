@@ -29,8 +29,9 @@ public class RestaurantsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurants);
 
-        mListView = (ListView) findViewById(R.id.listView);
         mLocationTextView = (TextView) findViewById(R.id.locationTextView);
+
+        mListView = (ListView) findViewById(R.id.listView);
 
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1);
         mListView.setAdapter(adapter);
