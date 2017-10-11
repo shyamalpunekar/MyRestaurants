@@ -14,7 +14,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 //import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
@@ -46,18 +46,19 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        mFindRestaurantsButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-//                Toast.makeText(MainActivity.this, "Hello World!", Toast.LENGTH_LONG).show();
+        mFindRestaurantsButton.setOnClickListener(this);
 
-                String location = mLocationEditText.getText().toString();
-                Log.d(TAG, location);
-
-                Intent intent = new Intent(MainActivity.this, RestaurantsActivity.class);
-                intent.putExtra("location", location);
-                startActivity(intent);
-            }
-        });
     }
+
+    @Override
+    public void onClick(View v) {
+        if (v == mFindRestaurantsButton) {
+            String location = mLocationEditText.getText().toString();
+            Intent intent = new Intent(MainActivity.this, RestaurantsActivity.class);
+            intent.putExtra("location", location);
+            startActivity(intent);
+        }
+    }
+
+
 }
