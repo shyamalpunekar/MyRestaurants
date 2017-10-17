@@ -3,6 +3,7 @@ package com.epicodus.myrestaurants.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ArrayAdapter;
@@ -42,7 +43,6 @@ public class RestaurantsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String location = intent.getStringExtra("location");
 
-        mLocationTextView.setText("Here are all the restaurants near: " + location);
         getRestaurants(location);
     }
 
@@ -70,9 +70,11 @@ public class RestaurantsActivity extends AppCompatActivity {
                             restaurantNames[i] = restaurants.get(i).getName();
                         }
 
-                        ArrayAdapter adapter = new ArrayAdapter(RestaurantsActivity.this, android.R.layout.simple_list_item_1, restaurantNames);
-
-                        mListView.setAdapter(adapter);
+                         mAdapter = new RestaurantListAdapter(getApplicationContext(), restaurants);
+                       mRecyclerView.setAdapter(mAdapter);
+                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(RestaurantsActivity.this);
+                        mRecyclerView.setLayoutManager(layoutManager);
+                        mRecyclerView.setHasFixedSize(true);
 
                         for (Restaurant restaurant : restaurants) {
                             Log.d(TAG, "Name: " + restaurant.getName());
