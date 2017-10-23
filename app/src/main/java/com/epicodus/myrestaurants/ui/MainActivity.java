@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    public static final String TAG = MainActivity.class.getSimpleName();
+    //public static final String TAG = MainActivity.class.getSimpleName();
 
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mEditor;
@@ -41,8 +41,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mEditor = mSharedPreferences.edit();
 
-//        Typeface ostrichFont = Typeface.createFromAsset(getAssets(), "fonts/ostrich-regular.ttf");
-//        mAppNameTextView.setTypeface(ostrichFont);
+        Typeface ostrichFont = Typeface.createFromAsset(getAssets(), "fonts/ostrich-regular.ttf");
+        mAppNameTextView.setTypeface(ostrichFont);
 
 
         mFindRestaurantsButton.setOnClickListener(this);
@@ -53,9 +53,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (v == mFindRestaurantsButton) {
 
                     String location = mLocationEditText.getText().toString();
-                    addToSharedPreferences(location);
+                    if(!(location).equals("")) {
+                        addToSharedPreferences(location);
+                    }
 
                     Intent intent = new Intent(MainActivity.this, RestaurantListActivity.class);
+
+                    intent.putExtra("location", location);
 
                     startActivity(intent);
                 }
