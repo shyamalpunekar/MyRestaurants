@@ -26,8 +26,9 @@ import okhttp3.Response;
 
 public class RestaurantListActivity extends AppCompatActivity {
 
-   // private SharedPreferences mSharedPreferences;
-    //private String mRecentAddress;
+    private SharedPreferences mSharedPreferences;
+    private SharedPreferences.Editor mEditor;
+    private String mRecentAddress;
 
   //  public static final String TAG = RestaurantListActivity.class.getSimpleName();
 
