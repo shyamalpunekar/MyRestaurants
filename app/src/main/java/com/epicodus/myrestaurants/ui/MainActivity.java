@@ -60,7 +60,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //            }
 //        });
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        View _mw = getLayoutInflater().inflate(R.layout.activity_main, null);
+        setContentView(_mw);
+     //   setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
 
