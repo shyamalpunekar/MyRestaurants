@@ -3,6 +3,7 @@ package com.epicodus.myrestaurants.ui;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.epicodus.myrestaurants.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -28,6 +30,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Bind(R.id.findRestaurantsButton) Button mFindRestaurantsButton;
     @Bind(R.id.appNameTextView) TextView mAppNameTextView;
     @Bind(R.id.savedRestaurantsButton) Button mSavedRestaurantsButton;
+
+    //Displaying Saved Names
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
 
     @Override
@@ -59,6 +65,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ButterKnife.bind(this);
 
 
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                //display welcome message
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    getSupportActionBar().setTitle("Welcome, " + user.getDisplayName() + "!");
+                } else {
+
+                }
+            }
+        };
+
         Typeface ostrichFont = Typeface.createFromAsset(getAssets(), "fonts/ostrich-regular.ttf");
         mAppNameTextView.setTypeface(ostrichFont);
 
@@ -67,6 +87,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mSavedRestaurantsButton.setOnClickListener(this);
     }
 
+
+    //FirebaseAuth object
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
             @Override
             public void onClick(View v) {
                 if (v == mFindRestaurantsButton) {
@@ -104,6 +140,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(intent);
         finish();
     }
+
+
+
+
+
+
+
 
 //            public void saveLocationToFirebase(String location){
 //                mSearchedLocationReference.push().setValue(location);
