@@ -53,10 +53,13 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
         mAuth = FirebaseAuth.getInstance();
         createAuthStateListener();
 
+        createAuthProgressDialog();
+        createAuthProgressDialog();
+
         mLoginTextView.setOnClickListener(this);
         mCreateUserButton.setOnClickListener(this);
 
-        createAuthProgressDialog();
+
     }
 
     private void createAuthProgressDialog() {
