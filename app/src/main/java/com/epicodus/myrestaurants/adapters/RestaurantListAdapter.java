@@ -27,6 +27,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
     private ArrayList<Restaurant> mRestaurants = new ArrayList<>();
     private Context mContext;
 
+
     public RestaurantListAdapter(Context context, ArrayList<Restaurant> restaurants) {
         mContext = context;
         mRestaurants = restaurants;
